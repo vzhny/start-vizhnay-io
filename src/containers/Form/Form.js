@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import store from 'store';
 import styles from './Form.module.scss';
 
 export default class Form extends Component {
@@ -8,16 +9,23 @@ export default class Form extends Component {
       url: '',
       category: null,
     },
+    categories: [
+      {
+        value: 'placeholder',
+        title: 'Please select a category!',
+      },
+      {
+        value: 'new-category',
+        title: 'Add a New Category',
+      },
+    ],
     showAddNewCategory: false,
   };
 
-  componentDidMount() {
-    // TODO Dynamically retrieve the categories for the select dropdown
-  }
+  componentDidMount() {}
 
   inputHandler = event => {
     const { name, value } = event.target;
-    console.log('value:', value);
 
     switch (name) {
       case 'name':
@@ -37,13 +45,13 @@ export default class Form extends Component {
         });
         break;
       case 'categories':
-        // TODO bind the value of the categories to the displayed values
         if (value !== 'new-category') {
           this.setState({
             linkData: {
               ...this.state.linkData,
               category: value,
             },
+            showAddNewCategory: false,
           });
         } else {
           this.setState({
@@ -67,10 +75,50 @@ export default class Form extends Component {
 
   onFormSubmitHandler = e => {
     e.preventDefault();
-    console.log('LinkData', this.state.linkData);
+
+    const updatedLinksCollection = store.get('linksCollection');
+    const updatedCategoriesCollection = store.get('categoriesCollection');
+
+    if (updatedLinksCollection) {
+      updatedLinksCollection.push(this.state.linkData);
+      store.set('linksCollection', updatedLinksCollection);
+    } else {
+      const linksCollection = [];
+      linksCollection.push(this.state.linkData);
+      store.set('linksCollection', linksCollection);
+    }
+
+    if (updatedCategoriesCollection) {
+      updatedCategoriesCollection.push(...this.state.categories, this.state.linkData.category);
+      store.set('categoriesCollection', updatedCategoriesCollection);
+    } else {
+      const categoriesCollection = [];
+      const convertedCategory = {
+        value: this.state.linkData.category,
+        title: this.state.linkData.category,
+      };
+      categoriesCollection.push(convertedCategory);
+      store.set('categoriesCollection', categoriesCollection);
+    }
+
+    this.setState({
+      ...this.state,
+      categories: store.get('categoriesCollection'),
+    });
+
+    // TODO Find a better(?) way to close the modal that may not involve passing the toggleHandler all the way down
+    this.props.clicked();
   };
 
   render() {
+    const dropDownOptions = this.state.categories.map((category, index) => {
+      return (
+        <option key={index} value={category.value}>
+          {category.title}
+        </option>
+      );
+    });
+
     return (
       <form className={styles.Form} onSubmit={e => this.onFormSubmitHandler(e)}>
         <p>Please enter your link information below:</p>
@@ -86,8 +134,7 @@ export default class Form extends Component {
           Link Category:
         </label>
         <select name="categories" onChange={e => this.inputHandler(e)}>
-          <option value="placeholder">Please select a category!</option>
-          <option value="new-category">Add a New Category</option>
+          {dropDownOptions}
         </select>
         {this.state.showAddNewCategory ? (
           <input

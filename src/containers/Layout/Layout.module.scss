@@ -1,6 +1,7 @@
 .Layout {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1rem;
   width: 50vw;
   padding: 1rem;
 }
