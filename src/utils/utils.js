@@ -1,17 +1,13 @@
-const slugify = text => {
-  checkIfString(text);
-
+module.exports.slugify = text => {
   const slug = text
     .trim()
     .toLowerCase()
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
     .replace(' ', '-');
-
   return slug;
 };
 
-const unslugify = slug => {
-  checkIfString(slug);
-
+module.exports.unslugify = slug => {
   const text = slug
     .replace('-', ' ')
     .split(' ')
@@ -22,9 +18,7 @@ const unslugify = slug => {
 };
 
 function checkIfString(value) {
-  if (typeof value !== String) {
-    return new Error('Not a string');
+  if (typeof value !== 'string') {
+    return new TypeError('Not a string');
   }
 }
-
-export default { slugify, unslugify };
