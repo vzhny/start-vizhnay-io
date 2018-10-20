@@ -53,6 +53,12 @@ export default class Form extends Component {
         }
         break;
       case 'category':
+        this.setState({
+          linkData: {
+            ...this.state.linkData,
+            category: value,
+          },
+        });
         break;
       default:
         break;
