@@ -4,16 +4,19 @@ import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
 import styles from './Layout.module.scss';
-import { unslugify } from '../../utils/utils';
+import CardBody from '../../components/Card/CardBody/CardBody';
+import Link from '../../components/UI/Link/Link';
 
 export default class Layout extends Component {
   state = {
     linksCollection: [],
+    categories: [],
     showModal: false,
   };
 
   componentDidMount() {
     this.setState({
+      ...this.state,
       linksCollection: store.get('linksCollection'),
     });
   }
@@ -40,12 +43,15 @@ export default class Layout extends Component {
       </Card>
     );
 
-    // TODO Fix component not re-rendering on adding link
     if (this.state.linksCollection) {
-      linksCollection = this.state.linksCollection.map((link, index) => {
+      linksCollection = this.state.linksCollection.map((collection, index) => {
         return (
           <Card key={index}>
-            <a href={link.url}>{link.name}</a>
+            <CardBody>
+              {collection.links.map((link, index) => (
+                <Link key={index} name={link.name} url={link.url} linksUpdated={this.linkUpdateHandler} />
+              ))}
+            </CardBody>
           </Card>
         );
       });

@@ -1,0 +1,28 @@
+.LinkContainer {
+  position: relative;
+}
+
+.Link {
+  color: #333;
+  text-decoration: none;
+  text-transform: lowercase;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: #333;
+  }
+}
+
+.RemoveBtn {
+  position: absolute;
+  right: 0;
+  color: lighten(#323a43, 60%);
+
+  &:hover {
+    color: #c2606a;
+    cursor: pointer;
+  }
+}

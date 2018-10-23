@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import store from 'store';
 import styles from './Form.module.scss';
 import slugify from 'slugify';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import { unslugify } from '../../utils/utils';
 
 export default class Form extends Component {
@@ -11,18 +13,46 @@ export default class Form extends Component {
       url: '',
       category: null,
     },
-    categories: [
-      {
-        value: 'placeholder',
-        title: 'Please select a category!',
-      },
-      {
-        value: 'new-category',
-        title: 'Add a New Category',
-      },
-    ],
+    categories: [],
     showAddNewCategory: false,
+    validationErrors: {
+      name: {
+        length: 0,
+        touched: false,
+      },
+      url: {
+        length: 0,
+        touched: false,
+      },
+      category: {
+        length: 0,
+        touched: false,
+      },
+    },
+    submitDisabled: false,
   };
+
+  componentDidMount() {
+    let categoriesCollection = store.get('categoriesCollection');
+
+    if (categoriesCollection === undefined) {
+      categoriesCollection = [
+        {
+          value: 'placeholder',
+          title: 'Please select a category!',
+        },
+        {
+          value: 'new-category',
+          title: 'Add a New Category',
+        },
+      ];
+    }
+
+    this.setState({
+      ...this.state,
+      categories: categoriesCollection,
+    });
+  }
 
   inputHandler = event => {
     const { name, value } = event.target;
@@ -85,38 +115,78 @@ export default class Form extends Component {
   onFormSubmitHandler = e => {
     e.preventDefault();
 
+    this.addLinkToCollection();
+    this.addCategoryToCollection();
+
+    this.props.clicked();
+    this.props.linksUpdated();
+  };
+
+  addLinkToCollection = () => {
     let linksCollection = store.get('linksCollection');
-    console.log('linksCollection', linksCollection);
-    const addedLink = this.state.linkData;
+    const { name, url, category } = this.state.linkData;
+
+    if (name.length === 0) {
+    }
 
     if (linksCollection === undefined) {
       linksCollection = [];
     }
 
-    linksCollection.push(addedLink);
-    store.set('linksCollection', linksCollection);
+    const existingCategory = find(linksCollection, ['category', category]);
 
+    if (existingCategory === undefined) {
+      const addedLinkWithCategory = {
+        category,
+        links: [
+          {
+            name,
+            url,
+          },
+        ],
+      };
+
+      linksCollection.push(addedLinkWithCategory);
+
+      store.set('linksCollection', linksCollection);
+    } else {
+      const addedLink = {
+        name,
+        url,
+      };
+
+      existingCategory.links.push(addedLink);
+      const indexOfExistingCategory = findIndex(linksCollection, ['category', category]);
+      linksCollection.splice(indexOfExistingCategory, 1, existingCategory);
+
+      store.set('linksCollection', linksCollection);
+    }
+  };
+
+  addCategoryToCollection = () => {
     let categoriesCollection = store.get('categoriesCollection');
-    console.log('categoriesCollection', categoriesCollection);
-    const addedCategory = {
-      value: this.state.linkData.category,
-      name: unslugify(this.state.linkData.category),
-    };
 
     if (categoriesCollection === undefined) {
       categoriesCollection = this.state.categories;
     }
 
-    categoriesCollection.push(addedCategory);
-    store.set('categoriesCollection', categoriesCollection);
+    const duplicateCategory = find(categoriesCollection, ['value', this.state.linkData.category]);
 
-    this.setState({
-      ...this.state,
-      categories: categoriesCollection,
-    });
+    if (duplicateCategory === undefined) {
+      const addedCategory = {
+        value: this.state.linkData.category,
+        title: unslugify(this.state.linkData.category),
+      };
 
-    this.props.clicked();
-    this.props.linksUpdated();
+      categoriesCollection.push(addedCategory);
+
+      store.set('categoriesCollection', categoriesCollection);
+
+      this.setState({
+        ...this.state,
+        categories: categoriesCollection,
+      });
+    }
   };
 
   render() {
@@ -154,7 +224,7 @@ export default class Form extends Component {
             name="category"
           />
         ) : null}
-        <button className={styles.SubmitBtn} type="submit">
+        <button className={styles.SubmitBtn} disabled={this.state.submitDisabled} type="submit">
           Add Link
         </button>
       </form>
