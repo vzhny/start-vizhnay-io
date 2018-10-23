@@ -63,7 +63,7 @@ export default class Layout extends Component {
           <Modal clicked={this.toggleModalHandler} linksUpdated={this.linkUpdateHandler} />
         ) : null}
         <div className={styles.Layout}>{linksCollection}</div>
-        <FloatingActionButton clicked={this.toggleModalHandler} />
+        <FloatingActionButton text="➕" clicked={this.toggleModalHandler} />
       </>
     );
   }
