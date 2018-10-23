@@ -1,13 +1,6 @@
-module.exports.slugify = text => {
-  const slug = text
-    .trim()
-    .toLowerCase()
-    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
-    .replace(' ', '-');
-  return slug;
-};
-
 module.exports.unslugify = slug => {
+  checkIfString(slug);
+
   const text = slug
     .replace('-', ' ')
     .split(' ')

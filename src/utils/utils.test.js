@@ -1,25 +1,14 @@
-import { slugify, unslugify } from './utils';
-
-test('slugify to return a slug given a string value', () => {
-  let text = 'Hello World';
-  let slug = slugify(text);
-
-  expect(slug).toBe('hello-world');
-
-  text = '   Hello, World    ';
-  slug = slugify(text);
-
-  expect(slug).toBe('hello-world');
-
-  text = 'HELLO              WoRlD';
-  slug = slugify(text);
-
-  expect(slug).toBe('hello-world');
-});
+import slugify from 'slugify';
+import { unslugify } from './utils';
 
 test('unslugify to return the original string value of the slug', () => {
-  const slug = 'hello-world';
-  const text = unslugify(slug);
+  let slug = slugify('Hello World');
+  let text = unslugify(slug);
+
+  expect(text).toBe('Hello World');
+
+  slug = slugify('    Hello, World     ');
+  text = unslugify(slug);
 
   expect(text).toBe('Hello World');
 });

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import store from 'store';
 import styles from './Form.module.scss';
+import slugify from 'slugify';
+import { unslugify } from '../../utils/utils';
 
 export default class Form extends Component {
   state = {
@@ -22,14 +24,14 @@ export default class Form extends Component {
     showAddNewCategory: false,
   };
 
-  componentDidMount() {}
-
   inputHandler = event => {
     const { name, value } = event.target;
 
     switch (name) {
       case 'name':
+        // Link Name input field
         this.setState({
+          ...this.state,
           linkData: {
             ...this.state.linkData,
             name: value,
@@ -37,7 +39,9 @@ export default class Form extends Component {
         });
         break;
       case 'url':
+        // Link URL input field
         this.setState({
+          ...this.state,
           linkData: {
             ...this.state.linkData,
             url: value,
@@ -46,14 +50,17 @@ export default class Form extends Component {
         break;
       case 'categories':
         if (value !== 'new-category') {
+          // User selected an existing category
           this.setState({
+            ...this.state,
             linkData: {
               ...this.state.linkData,
-              category: value,
+              category: slugify(value, { lower: true }),
             },
             showAddNewCategory: false,
           });
         } else {
+          // User selected to add a new category, show the input field
           this.setState({
             ...this.state,
             showAddNewCategory: true,
@@ -61,10 +68,12 @@ export default class Form extends Component {
         }
         break;
       case 'category':
+        // Link Category input field
         this.setState({
+          ...this.state,
           linkData: {
             ...this.state.linkData,
-            category: value,
+            category: slugify(value, { lower: true }),
           },
         });
         break;
@@ -76,38 +85,38 @@ export default class Form extends Component {
   onFormSubmitHandler = e => {
     e.preventDefault();
 
-    const updatedLinksCollection = store.get('linksCollection');
-    const updatedCategoriesCollection = store.get('categoriesCollection');
+    let linksCollection = store.get('linksCollection');
+    console.log('linksCollection', linksCollection);
+    const addedLink = this.state.linkData;
 
-    if (updatedLinksCollection) {
-      updatedLinksCollection.push(this.state.linkData);
-      store.set('linksCollection', updatedLinksCollection);
-    } else {
-      const linksCollection = [];
-      linksCollection.push(this.state.linkData);
-      store.set('linksCollection', linksCollection);
+    if (linksCollection === undefined) {
+      linksCollection = [];
     }
 
-    if (updatedCategoriesCollection) {
-      updatedCategoriesCollection.push(...this.state.categories, this.state.linkData.category);
-      store.set('categoriesCollection', updatedCategoriesCollection);
-    } else {
-      const categoriesCollection = [];
-      const convertedCategory = {
-        value: this.state.linkData.category,
-        title: this.state.linkData.category,
-      };
-      categoriesCollection.push(convertedCategory);
-      store.set('categoriesCollection', categoriesCollection);
+    linksCollection.push(addedLink);
+    store.set('linksCollection', linksCollection);
+
+    let categoriesCollection = store.get('categoriesCollection');
+    console.log('categoriesCollection', categoriesCollection);
+    const addedCategory = {
+      value: this.state.linkData.category,
+      name: unslugify(this.state.linkData.category),
+    };
+
+    if (categoriesCollection === undefined) {
+      categoriesCollection = this.state.categories;
     }
+
+    categoriesCollection.push(addedCategory);
+    store.set('categoriesCollection', categoriesCollection);
 
     this.setState({
       ...this.state,
-      categories: store.get('categoriesCollection'),
+      categories: categoriesCollection,
     });
 
-    // TODO Find a better(?) way to close the modal that may not involve passing the toggleHandler all the way down
     this.props.clicked();
+    this.props.linksUpdated();
   };
 
   render() {
@@ -133,7 +142,7 @@ export default class Form extends Component {
         <label className={styles.Label} htmlFor="category">
           Link Category:
         </label>
-        <select name="categories" onChange={e => this.inputHandler(e)}>
+        <select className={styles.Dropdown} name="categories" onChange={e => this.inputHandler(e)}>
           {dropDownOptions}
         </select>
         {this.state.showAddNewCategory ? (

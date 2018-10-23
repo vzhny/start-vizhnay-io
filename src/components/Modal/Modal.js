@@ -8,8 +8,8 @@ const Modal = props => (
   <>
     <Backdrop toggleModal={props.clicked} />
     <div className={styles.Modal}>
-      <Card>
-        <Form clicked={props.clicked} />
+      <Card title="Add Link">
+        <Form clicked={props.clicked} linksUpdated={props.linksUpdated} />
       </Card>
     </div>
   </>

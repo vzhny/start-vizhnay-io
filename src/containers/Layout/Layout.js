@@ -4,6 +4,7 @@ import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
 import styles from './Layout.module.scss';
+import { unslugify } from '../../utils/utils';
 
 export default class Layout extends Component {
   state = {
@@ -21,13 +22,15 @@ export default class Layout extends Component {
     this.setState({
       showModal: !this.state.showModal,
     });
+  };
 
-    // If the modal was closed, trigger an update to the links collection
-    if (this.state.showModal === false) {
-      this.setState({
-        linksCollection: store.get('linksCollection'),
-      });
-    }
+  linkUpdateHandler = () => {
+    const linksCollection = store.get('linksCollection');
+
+    this.setState({
+      ...this.state,
+      linksCollection,
+    });
   };
 
   render() {
@@ -42,9 +45,7 @@ export default class Layout extends Component {
       linksCollection = this.state.linksCollection.map((link, index) => {
         return (
           <Card key={index}>
-            <h1>{link.category}</h1>
-            <p>{link.name}</p>
-            <p>{link.url}</p>
+            <a href={link.url}>{link.name}</a>
           </Card>
         );
       });
@@ -52,7 +53,9 @@ export default class Layout extends Component {
 
     return (
       <>
-        {this.state.showModal ? <Modal clicked={this.toggleModalHandler} /> : null}
+        {this.state.showModal ? (
+          <Modal clicked={this.toggleModalHandler} linksUpdated={this.linkUpdateHandler} />
+        ) : null}
         <div className={styles.Layout}>{linksCollection}</div>
         <FloatingActionButton clicked={this.toggleModalHandler} />
       </>
