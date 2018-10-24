@@ -10,7 +10,7 @@ export default class Link extends Component {
         <a className={styles.Link} target="_blank" rel="noopener noreferrer" href={this.props.url}>
           {this.props.name}
         </a>
-        <span className={styles.RemoveBtn} onClick={this.removeLinkHandler()}>
+        <span className={styles.RemoveBtn} onClick={this.props.removeLink}>
           &times;
         </span>
       </div>

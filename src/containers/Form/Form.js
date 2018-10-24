@@ -11,25 +11,21 @@ export default class Form extends Component {
     linkData: {
       name: '',
       url: '',
-      category: null,
+      category: '',
     },
     categories: [],
     showAddNewCategory: false,
     validationErrors: {
       name: {
-        length: 0,
-        touched: false,
+        missing: false,
       },
       url: {
-        length: 0,
-        touched: false,
+        missing: false,
       },
       category: {
-        length: 0,
-        touched: false,
+        missing: false,
       },
     },
-    submitDisabled: false,
   };
 
   componentDidMount() {
@@ -115,11 +111,54 @@ export default class Form extends Component {
   onFormSubmitHandler = e => {
     e.preventDefault();
 
+    const formInvalid = this.checkForInvalidation();
+
+    if (formInvalid) {
+      return;
+    }
+
     this.addLinkToCollection();
     this.addCategoryToCollection();
 
     this.props.clicked();
     this.props.linksUpdated();
+  };
+
+  checkForInvalidation = () => {
+    let containsErrors = false;
+    const { name, url, category } = this.state.linkData;
+    const updatedValidationErrors = this.state.validationErrors;
+
+    if (name.length === 0) {
+      updatedValidationErrors.name.missing = true;
+      containsErrors = true;
+    } else {
+      updatedValidationErrors.name.missing = false;
+    }
+
+    if (url.length === 0) {
+      updatedValidationErrors.url.missing = true;
+      containsErrors = true;
+    } else {
+      updatedValidationErrors.url.missing = false;
+    }
+
+    if (category.length === 0) {
+      updatedValidationErrors.category.missing = true;
+      containsErrors = true;
+    } else {
+      updatedValidationErrors.category.missing = false;
+    }
+
+    this.setState({
+      ...this.state,
+      linkData: {
+        ...this.state.linkData,
+      },
+      validationErrors: updatedValidationErrors,
+    });
+
+    return containsErrors;
   };
 
   addLinkToCollection = () => {
@@ -205,10 +244,14 @@ export default class Form extends Component {
           Link Name:
         </label>
         <input className={styles.Input} onChange={e => this.inputHandler(e)} type="text" name="name" />
+        {this.state.validationErrors.name.missing ? (
+          <p className={styles.FormError}>Please enter a link name.</p>
+        ) : null}
         <label className={styles.Label} htmlFor="url">
           Link URL:
         </label>
         <input className={styles.Input} onChange={e => this.inputHandler(e)} type="url" name="url" />
+        {this.state.validationErrors.url.missing ? <p className={styles.FormError}>Please enter a url.</p> : null}
         <label className={styles.Label} htmlFor="category">
           Link Category:
         </label>
@@ -224,7 +267,10 @@ export default class Form extends Component {
             name="category"
           />
         ) : null}
-        <button className={styles.SubmitBtn} disabled={this.state.submitDisabled} type="submit">
+        {this.state.validationErrors.category.missing ? (
+          <p className={styles.FormError}>Please select or enter a category.</p>
+        ) : null}
+        <button className={styles.SubmitBtn} type="submit">
           Add Link
         </button>
       </form>

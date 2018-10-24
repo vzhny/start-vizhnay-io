@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import store from 'store';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
@@ -10,15 +12,11 @@ import Link from '../../components/UI/Link/Link';
 export default class Layout extends Component {
   state = {
     linksCollection: [],
-    categories: [],
     showModal: false,
   };
 
   componentDidMount() {
-    this.setState({
-      ...this.state,
-      linksCollection: store.get('linksCollection'),
-    });
+    this.retrieveLinks();
   }
 
   toggleModalHandler = () => {
@@ -28,12 +26,53 @@ export default class Layout extends Component {
   };
 
   linkUpdateHandler = () => {
+    this.retrieveLinks();
+  };
+
+  retrieveLinks = () => {
     const linksCollection = store.get('linksCollection');
+
+    if (linksCollection) {
+      this.setState({
+        ...this.state,
+        linksCollection: store.get('linksCollection'),
+      });
+    }
+  };
+
+  removeLinkHandler = (category, name) => {
+    let modifiedLinksCollection = this.state.linksCollection;
+    const categoryOfLink = find(modifiedLinksCollection, ['category', category]);
+    const { links } = categoryOfLink;
+
+    const indexOfLink = findIndex(links, ['name', name]);
+    links.splice(indexOfLink, 1);
+
+    if (links.length === 0) {
+      const indexOfLinkCategory = findIndex(modifiedLinksCollection, ['category', category]);
+      modifiedLinksCollection.splice(indexOfLinkCategory, 1);
+      this.removeEmptyCategory(category);
+    }
+
+    if (modifiedLinksCollection.length === 0) {
+      modifiedLinksCollection = [];
+    }
+
+    store.set('linksCollection', modifiedLinksCollection);
 
     this.setState({
       ...this.state,
-      linksCollection,
+      linksCollection: modifiedLinksCollection,
     });
+  };
+
+  removeEmptyCategory = category => {
+    const modifiedCategoriesCollection = store.get('categoriesCollection');
+    const indexOfCategoryCollection = findIndex(modifiedCategoriesCollection, ['category', category]);
+
+    modifiedCategoriesCollection.splice(indexOfCategoryCollection, 1);
+
+    store.set('categoriesCollection', modifiedCategoriesCollection);
   };
 
   render() {
@@ -43,13 +82,18 @@ export default class Layout extends Component {
       </Card>
     );
 
-    if (this.state.linksCollection) {
+    if (this.state.linksCollection.length > 0) {
       linksCollection = this.state.linksCollection.map((collection, index) => {
         return (
-          <Card key={index}>
+          <Card key={collection.category}>
             <CardBody>
               {collection.links.map((link, index) => (
-                <Link key={index} name={link.name} url={link.url} linksUpdated={this.linkUpdateHandler} />
+                <Link
+                  key={index}
+                  name={link.name}
+                  url={link.url}
+                  removeLink={() => this.removeLinkHandler(collection.category, link.name)}
+                />
               ))}
             </CardBody>
           </Card>

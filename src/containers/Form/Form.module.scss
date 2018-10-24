@@ -22,13 +22,19 @@
   }
 }
 
+.FormError {
+  font-size: 14px;
+  padding: 10px;
+  color: #c2606a;
+}
+
 .Dropdown {
   padding: 10px;
 }
 
 .SubmitBtn {
   background-color: #97c688;
-  color: #eee;
+  color: #303742;
   width: 150px;
   align-self: flex-end;
   margin-top: 2rem;
