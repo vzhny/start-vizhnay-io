@@ -120,11 +120,12 @@ export default class Form extends Component {
     this.addLinkToCollection();
     this.addCategoryToCollection();
 
-    this.props.clicked();
+    // this.props.clicked();
     this.props.linksUpdated();
   };
 
   checkForInvalidation = () => {
+    // TODO check for any duplicate links attempting to be added
     let containsErrors = false;
     const { name, url, category } = this.state.linkData;
     const updatedValidationErrors = this.state.validationErrors;
@@ -238,7 +239,13 @@ export default class Form extends Component {
     });
 
     return (
-      <form className={styles.Form} onSubmit={e => this.onFormSubmitHandler(e)}>
+      <form
+        className={styles.Form}
+        onSubmit={e => {
+          this.onFormSubmitHandler(e);
+          this.props.clicked();
+        }}
+      >
         <p>Please enter your link information below:</p>
         <label className={styles.Label} htmlFor="name">
           Link Name:

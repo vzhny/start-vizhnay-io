@@ -6,7 +6,7 @@ import styles from './Modal.module.scss';
 
 const Modal = props => (
   <>
-    <Backdrop toggleModal={props.clicked} />
+    <Backdrop clicked={props.clicked} />
     <div className={styles.Modal}>
       <Card title="Add Link">
         <Form clicked={props.clicked} linksUpdated={props.linksUpdated} />

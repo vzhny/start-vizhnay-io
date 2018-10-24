@@ -21,6 +21,7 @@ export default class Layout extends Component {
 
   toggleModalHandler = () => {
     this.setState({
+      ...this.state,
       showModal: !this.state.showModal,
     });
   };

@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Link.module.scss';
 
-export default class Link extends Component {
-  removeLinkHandler = () => {};
+const Link = props => (
+  <div className={styles.LinkContainer}>
+    <a className={styles.Link} target="_blank" rel="noopener noreferrer" href={props.url}>
+      {props.name}
+    </a>
+    <span className={styles.RemoveBtn} onClick={props.removeLink}>
+      &times;
+    </span>
+  </div>
+);
 
-  render() {
-    return (
-      <div className={styles.LinkContainer}>
-        <a className={styles.Link} target="_blank" rel="noopener noreferrer" href={this.props.url}>
-          {this.props.name}
-        </a>
-        <span className={styles.RemoveBtn} onClick={this.props.removeLink}>
-          &times;
-        </span>
-      </div>
-    );
-  }
-}
+export default Link;
