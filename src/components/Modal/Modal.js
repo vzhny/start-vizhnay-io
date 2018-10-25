@@ -8,7 +8,7 @@ const Modal = props => (
   <>
     <Backdrop clicked={props.clicked} />
     <div className={styles.Modal}>
-      <Card title="Add Link">
+      <Card title="Add Link" isModal>
         <Form clicked={props.clicked} linksUpdated={props.linksUpdated} />
       </Card>
     </div>

@@ -17,12 +17,15 @@ export default class Form extends Component {
     showAddNewCategory: false,
     validationErrors: {
       name: {
+        alreadyExists: false,
         missing: false,
       },
       url: {
+        alreadyExists: false,
         missing: false,
       },
       category: {
+        alreadyExists: false,
         missing: false,
       },
     },
@@ -120,6 +123,7 @@ export default class Form extends Component {
     this.addLinkToCollection();
     this.addCategoryToCollection();
 
+    // TODO find out why clicked() isn't firing, but linksUpdated() is
     this.props.clicked();
     this.props.linksUpdated();
   };

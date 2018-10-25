@@ -20,10 +20,10 @@ export default class Layout extends Component {
   }
 
   toggleModalHandler = () => {
-    this.setState({
+    this.setState(prevState => ({
       ...this.state,
-      showModal: !this.state.showModal,
-    });
+      showModal: !prevState.showModal,
+    }));
   };
 
   linkUpdateHandler = () => {
