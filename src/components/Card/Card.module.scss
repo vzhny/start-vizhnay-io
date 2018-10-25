@@ -1,9 +1,8 @@
 .Card {
+  justify-self: center;
   display: flex;
   flex-direction: column;
   background-color: #ebeef3;
-  // height: 200px;
-  // width: 200px;
   padding: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;

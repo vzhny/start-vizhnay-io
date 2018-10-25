@@ -120,7 +120,7 @@ export default class Form extends Component {
     this.addLinkToCollection();
     this.addCategoryToCollection();
 
-    // this.props.clicked();
+    this.props.clicked();
     this.props.linksUpdated();
   };
 
@@ -239,13 +239,7 @@ export default class Form extends Component {
     });
 
     return (
-      <form
-        className={styles.Form}
-        onSubmit={e => {
-          this.onFormSubmitHandler(e);
-          this.props.clicked();
-        }}
-      >
+      <form className={styles.Form} onSubmit={e => this.onFormSubmitHandler(e)}>
         <p>Please enter your link information below:</p>
         <label className={styles.Label} htmlFor="name">
           Link Name:
