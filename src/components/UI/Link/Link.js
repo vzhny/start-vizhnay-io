@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Link.module.scss';
 
 const Link = props => (
@@ -11,5 +12,11 @@ const Link = props => (
     </span>
   </div>
 );
+
+Link.propTypes = {
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  removeLink: PropTypes.func.isRequired,
+};
 
 export default Link;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import store from 'store';
 import styles from './Form.module.scss';
 import slugify from 'slugify';
@@ -287,3 +288,8 @@ export default class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  clicked: PropTypes.func.isRequired,
+  linksUpdated: PropTypes.func.isRequired,
+};

@@ -5,9 +5,9 @@ import findIndex from 'lodash/findIndex';
 import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
-import styles from './Layout.module.scss';
 import CardBody from '../../components/Card/CardBody/CardBody';
 import Link from '../../components/UI/Link/Link';
+import styles from './Layout.module.scss';
 
 export default class Layout extends Component {
   state = {
@@ -121,7 +121,7 @@ export default class Layout extends Component {
           <></>
         )}
         <div className={styles.Layout}>{linksCollection}</div>
-        <FloatingActionButton text="➕" clicked={this.showModalHandler} />
+        <FloatingActionButton clicked={this.showModalHandler} />
       </>
     );
   }

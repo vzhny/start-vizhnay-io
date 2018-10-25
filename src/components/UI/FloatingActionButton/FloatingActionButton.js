@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './FloatingActionButton.module.scss';
 
 const FloatingActionButton = props => (
@@ -6,5 +7,14 @@ const FloatingActionButton = props => (
     {props.text}
   </button>
 );
+
+FloatingActionButton.defaultProps = {
+  text: '➕',
+};
+
+FloatingActionButton.propTypes = {
+  text: PropTypes.string,
+  clicked: PropTypes.func.isRequired,
+};
 
 export default FloatingActionButton;
