@@ -19,11 +19,24 @@ export default class Layout extends Component {
     this.retrieveLinks();
   }
 
-  toggleModalHandler = () => {
-    this.setState(prevState => ({
+  showModalHandler = () => {
+    this.setState({
       ...this.state,
-      showModal: !prevState.showModal,
-    }));
+      showModal: true,
+    });
+  };
+
+  hideModalHandler = () => {
+    console.log('Hiding; before: showModal = ', this.state.showModal);
+    this.setState(
+      {
+        ...this.state,
+        showModal: false,
+      },
+      () => {
+        console.log('Hiding; after: showModal = ', this.state.showModal);
+      }
+    );
   };
 
   linkUpdateHandler = () => {
@@ -104,11 +117,11 @@ export default class Layout extends Component {
 
     return (
       <>
-        {this.state.showModal ? (
-          <Modal clicked={this.toggleModalHandler} linksUpdated={this.linkUpdateHandler} />
-        ) : null}
+        {(this.state.showModal && <Modal clicked={this.hideModalHandler} linksUpdated={this.linkUpdateHandler} />) || (
+          <></>
+        )}
         <div className={styles.Layout}>{linksCollection}</div>
-        <FloatingActionButton text="➕" clicked={this.toggleModalHandler} />
+        <FloatingActionButton text="➕" clicked={this.showModalHandler} />
       </>
     );
   }

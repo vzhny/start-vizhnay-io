@@ -123,9 +123,14 @@ export default class Form extends Component {
     this.addLinkToCollection();
     this.addCategoryToCollection();
 
-    // TODO find out why clicked() isn't firing, but linksUpdated() is
-    this.props.clicked();
-    this.props.linksUpdated();
+    this.closeModal(true);
+  };
+
+  closeModal = async close => {
+    if (close) {
+      await this.props.clicked();
+      await this.props.linksUpdated();
+    }
   };
 
   checkForInvalidation = () => {
