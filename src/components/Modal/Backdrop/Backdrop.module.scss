@@ -8,13 +8,3 @@
   z-index: 100;
   animation: fadeIn 250ms;
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
