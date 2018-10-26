@@ -5,7 +5,6 @@ import findIndex from 'lodash/findIndex';
 import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
-import CardBody from '../../components/Card/CardBody/CardBody';
 import Link from '../../components/UI/Link/Link';
 import styles from './Layout.module.scss';
 
@@ -27,15 +26,12 @@ export default class Layout extends Component {
   };
 
   hideModalHandler = () => {
-    console.log('Hiding; before: showModal = ', this.state.showModal);
     this.setState(
       {
         ...this.state,
         showModal: false,
       },
-      () => {
-        console.log('Hiding; after: showModal = ', this.state.showModal);
-      }
+      () => {}
     );
   };
 
@@ -100,16 +96,14 @@ export default class Layout extends Component {
       linksCollection = this.state.linksCollection.map((collection, index) => {
         return (
           <Card key={collection.category}>
-            <CardBody>
-              {collection.links.map((link, index) => (
-                <Link
-                  key={index}
-                  name={link.name}
-                  url={link.url}
-                  removeLink={() => this.removeLinkHandler(collection.category, link.name)}
-                />
-              ))}
-            </CardBody>
+            {collection.links.map((link, index) => (
+              <Link
+                key={index}
+                name={link.name}
+                url={link.url}
+                removeLink={() => this.removeLinkHandler(collection.category, link.name)}
+              />
+            ))}
           </Card>
         );
       });
