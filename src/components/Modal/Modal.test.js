@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import Modal from './Modal';
 import Backdrop from './Backdrop/Backdrop';
