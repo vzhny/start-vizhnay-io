@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Modal from './Modal';
-import Backdrop from './Backdrop/Backdrop';
 import Card from '../Card/Card';
 
 const mockProps = {
@@ -19,7 +18,7 @@ const wrapper = shallow(<Modal clicked={mockProps.clicked} linksUpdated={mockPro
 describe('The Modal component', () => {
   it('should be the correct element types', () => {
     const backdrop = wrapper.childAt(0);
-    expect(backdrop.type()).toBe(Backdrop);
+    expect(backdrop.type()).toBe('div');
 
     const card = wrapper.childAt(1).children();
     expect(card.type()).toBe(Card);
@@ -27,7 +26,7 @@ describe('The Modal component', () => {
 
   it('should receive the correct props', () => {
     const backdrop = wrapper.childAt(0).props();
-    expect(backdrop.clicked).toEqual(mockProps.clicked);
+    expect(backdrop.onClick).toEqual(mockProps.clicked);
 
     const formInCard = wrapper
       .childAt(1)
