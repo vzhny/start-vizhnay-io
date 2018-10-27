@@ -26,13 +26,10 @@ export default class Layout extends Component {
   };
 
   hideModalHandler = () => {
-    this.setState(
-      {
-        ...this.state,
-        showModal: false,
-      },
-      () => {}
-    );
+    this.setState({
+      ...this.state,
+      showModal: false,
+    });
   };
 
   linkUpdateHandler = () => {
@@ -111,7 +108,7 @@ export default class Layout extends Component {
 
     return (
       <>
-        {this.state.showModal && <Modal clicked={this.hideModalHandler} linksUpdated={this.linkUpdateHandler} />}>
+        {this.state.showModal && <Modal clicked={this.hideModalHandler} linksUpdated={this.linkUpdateHandler} />}
         <div className={styles.Layout}>{linksCollection}</div>
         <FloatingActionButton clicked={this.showModalHandler} />
       </>
