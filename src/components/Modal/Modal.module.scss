@@ -11,6 +11,12 @@
   justify-content: center;
   align-items: center;
   z-index: 200;
+  animation: modalScaleUp 250ms ease-in;
+
+  &__Close {
+    @extend .Modal;
+    animation: modalScaleDown 250ms ease-out;
+  }
 }
 
 .Backdrop {
@@ -21,5 +27,54 @@
   height: 100%;
   width: 100%;
   z-index: 100;
-  animation: fadeIn 250ms;
+  animation: backdropFadeIn 250ms ease-in;
+
+  &__Close {
+    @extend .Backdrop;
+    animation: backdropFadeOut 250ms ease-out;
+  }
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0.01;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdropFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.01;
+  }
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0.01;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modalScaleDown {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0.01;
+    transform: scale(0);
+  }
 }
