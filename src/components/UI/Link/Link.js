@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Link.module.scss';
 
-const Link = props => (
+const Link = ({ url, name, removeLink }) => (
   <div className={styles.LinkContainer}>
-    <a className={styles.Link} target="_blank" rel="noopener noreferrer" href={props.url}>
-      {props.name}
+    <a className={styles.Link} target="_blank" rel="noopener noreferrer" href={url}>
+      {name}
     </a>
-    <span className={styles.RemoveBtn} onClick={props.removeLink}>
+    <span className={styles.RemoveBtn} onClick={removeLink}>
       &times;
     </span>
   </div>

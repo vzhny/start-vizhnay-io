@@ -4,12 +4,12 @@ import Form from '../../containers/Form/Form';
 import Card from '../Card/Card';
 import styles from './Modal.module.scss';
 
-const Modal = props => (
+const Modal = ({ clicked, linksUpdated }) => (
   <>
-    <div className={styles.Backdrop} onClick={props.clicked} />
+    <div className={styles.Backdrop} onClick={clicked} />
     <div className={styles.Modal}>
       <Card title="Add Link">
-        <Form clicked={props.clicked} linksUpdated={props.linksUpdated} />
+        <Form clicked={clicked} linksUpdated={linksUpdated} />
       </Card>
     </div>
   </>
