@@ -7,6 +7,7 @@ import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
 import Link from '../../components/UI/Link/Link';
+import { getGreeting } from '../../utils/utils';
 import styles from './Layout.module.scss';
 
 const Layout = () => {
@@ -15,7 +16,9 @@ const Layout = () => {
 
   useEffect(() => {
     retrieveLinks();
-  });
+    document.title = getGreeting();
+    console.log(document.title);
+  }, [document.title]);
 
   const showModalHandler = () => {
     toggleModal(true);
@@ -91,7 +94,7 @@ const Layout = () => {
         </Card>
       );
     });
-  } else if (numberOfCategories === 1) {
+  } else if (numberOfCategories === 2) {
     renderedLinksCollection = (
       <Card>
         <p>Please click the floating action button to start adding links!</p>
