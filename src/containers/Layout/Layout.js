@@ -17,7 +17,6 @@ const Layout = () => {
   useEffect(() => {
     retrieveLinks();
     document.title = getGreeting();
-    console.log(document.title);
   }, [document.title]);
 
   const showModalHandler = () => {
