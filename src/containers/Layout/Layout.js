@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import store from 'store';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
-import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
@@ -14,7 +13,7 @@ const Layout = () => {
   const [linksCollection, setLinksCollection] = useState([]);
   const [showModal, toggleModal] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     retrieveLinks();
     document.title = getGreeting();
   }, [document.title]);
@@ -75,8 +74,11 @@ const Layout = () => {
     store.set('categoriesCollection', modifiedCategoriesCollection);
   };
 
-  let renderedLinksCollection = <Loader />;
-  const numberOfCategories = store.get('categoriesCollection').length;
+  let renderedLinksCollection = (
+    <Card>
+      <p>Please click the floating action button to start adding links!</p>
+    </Card>
+  );
 
   if (linksCollection.length > 0) {
     renderedLinksCollection = linksCollection.map(collection => {
@@ -93,12 +95,6 @@ const Layout = () => {
         </Card>
       );
     });
-  } else if (numberOfCategories === 2) {
-    renderedLinksCollection = (
-      <Card>
-        <p>Please click the floating action button to start adding links!</p>
-      </Card>
-    );
   }
 
   return (
