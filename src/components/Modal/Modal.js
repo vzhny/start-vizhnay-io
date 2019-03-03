@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Form from '../../containers/Form/Form';
 import Card from '../Card/Card';
-import styles from './Modal.module.scss';
+import { modal, backdrop } from './Modal.module.scss';
 
 const Modal = ({ clicked, linksUpdated }) => {
   const handleEscKey = e => {
@@ -29,8 +29,8 @@ const Modal = ({ clicked, linksUpdated }) => {
 
   return (
     <>
-      <div className={styles.Backdrop} onClick={clicked} />
-      <div className={styles.Modal}>
+      <div className={backdrop} onClick={clicked} />
+      <div className={modal}>
         <Card title="Add Link">
           <Form clicked={clicked} linksUpdated={linksUpdated} />
         </Card>

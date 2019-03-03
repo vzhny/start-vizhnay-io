@@ -32,9 +32,9 @@ describe('The Card component', () => {
 
   it('should display the correct header title and body content', () => {
     const header = wrapper.childAt(0);
-    expect(header.html()).toBe('<h1 class="CardHeader">Test!</h1>');
+    expect(header.html()).toBe('<h1 class="cardHeader">Test!</h1>');
 
     const body = wrapper.childAt(1);
-    expect(body.html()).toBe('<div class="CardBody"><p>Hello World!</p></div>');
+    expect(body.html()).toBe('<div class="cardBody"><p>Hello World!</p></div>');
   });
 });

@@ -7,7 +7,7 @@ import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
 import Link from '../../components/UI/Link/Link';
 import { getGreeting } from '../../utils/utils';
-import styles from './Layout.module.scss';
+import { layout } from './Layout.module.scss';
 
 const Layout = () => {
   const [linksCollection, setLinksCollection] = useState([]);
@@ -100,7 +100,7 @@ const Layout = () => {
   return (
     <>
       {showModal && <Modal clicked={hideModalHandler} linksUpdated={linkUpdateHandler} />}
-      <div className={styles.Layout}>{renderedLinksCollection}</div>
+      <div className={layout}>{renderedLinksCollection}</div>
       <FloatingActionButton clicked={showModalHandler} />
     </>
   );

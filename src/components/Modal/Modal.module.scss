@@ -1,4 +1,4 @@
-.Modal {
+.modal {
   position: absolute;
   top: 0;
   left: 0;
@@ -13,13 +13,13 @@
   z-index: 200;
   animation: modalScaleUp 250ms ease-in;
 
-  &__Close {
+  &__close {
     @extend .Modal;
     animation: modalScaleDown 250ms ease-out;
   }
 }
 
-.Backdrop {
+.backdrop {
   position: absolute;
   top: 0;
   left: 0;
@@ -29,7 +29,7 @@
   z-index: 100;
   animation: backdropFadeIn 250ms ease-in;
 
-  &__Close {
+  &__close {
     @extend .Backdrop;
     animation: backdropFadeOut 250ms ease-out;
   }

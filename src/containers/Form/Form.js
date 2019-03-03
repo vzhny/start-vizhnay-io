@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import store from 'store';
-import styles from './Form.module.scss';
 import slugify from 'slugify';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import { unslugify } from '../../utils/utils';
+import { form, label, input, formError, dropdown, submitBtn } from './Form.module.scss';
 
 const Form = ({ clicked, linksUpdated }) => {
   const [linkData, setLinkData] = useState({
@@ -217,31 +217,29 @@ const Form = ({ clicked, linksUpdated }) => {
   });
 
   return (
-    <form className={styles.Form} onSubmit={e => onFormSubmitHandler(e)}>
+    <form className={form} onSubmit={e => onFormSubmitHandler(e)}>
       <p>Please enter your link information below:</p>
-      <label className={styles.Label} htmlFor="name">
+      <label className={label} htmlFor="name">
         Link Name:
       </label>
-      <input className={styles.Input} onChange={e => inputHandler(e)} type="text" name="name" />
+      <input className={input} onChange={e => inputHandler(e)} type="text" name="name" />
       {validationErrors.name.missing ? (
-        <p className={styles.FormError}>Please enter a link name.</p>
+        <p className={formError}>Please enter a link name.</p>
       ) : null}
-      <label className={styles.Label} htmlFor="url">
+      <label className={label} htmlFor="url">
         Link URL:
       </label>
-      <input className={styles.Input} onChange={e => inputHandler(e)} type="url" name="url" />
-      {validationErrors.url.missing ? (
-        <p className={styles.FormError}>Please enter a url.</p>
-      ) : null}
-      <label className={styles.Label} htmlFor="category">
+      <input className={input} onChange={e => inputHandler(e)} type="url" name="url" />
+      {validationErrors.url.missing ? <p className={formError}>Please enter a url.</p> : null}
+      <label className={label} htmlFor="category">
         Link Category:
       </label>
-      <select className={styles.Dropdown} name="categories" onChange={e => inputHandler(e)}>
+      <select className={dropdown} name="categories" onChange={e => inputHandler(e)}>
         {dropDownOptions}
       </select>
       {showAddNewCategory ? (
         <input
-          className={styles.Input}
+          className={input}
           style={{ marginTop: '1rem' }}
           onChange={e => inputHandler(e)}
           type="text"
@@ -249,9 +247,9 @@ const Form = ({ clicked, linksUpdated }) => {
         />
       ) : null}
       {validationErrors.category.missing ? (
-        <p className={styles.FormError}>Please select or enter a category.</p>
+        <p className={formError}>Please select or enter a category.</p>
       ) : null}
-      <button className={styles.SubmitBtn} type="submit">
+      <button className={submitBtn} type="submit">
         Add Link
       </button>
     </form>

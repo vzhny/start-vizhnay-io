@@ -1,40 +1,40 @@
-.Form {
+.form {
   display: flex;
   flex-direction: column;
 }
 
-.Label {
+.label {
   text-align: left;
   padding: 10px 0;
 }
 
-.Input {
+.input {
   background-color: #eaedf2;
   padding: 10px;
   outline: none;
   border: none;
-  border-bottom: 1px solid #111;
+  border-bottom: 1px solid #282828;
   transition: all 150ms ease-out;
 
   &:focus {
-    border-bottom: 1px solid #97c688;
+    border-bottom: 1px solid #98971a;
     transition: all 150ms ease-in;
   }
 }
 
-.FormError {
+.formError {
   font-size: 14px;
   padding: 10px;
-  color: #c2606a;
+  color: #cc241d;
 }
 
-.Dropdown {
+.dropdown {
   padding: 10px;
 }
 
-.SubmitBtn {
-  background-color: #97c688;
-  color: #303742;
+.submitBtn {
+  background-color: #98971a;
+  color: #282828;
   width: 150px;
   align-self: flex-end;
   margin-top: 2rem;
@@ -46,7 +46,7 @@
 
   &:disabled {
     background-color: #d6dde8;
-    color: #303742;
+    color: #282828;
     cursor: not-allowed;
   }
 }

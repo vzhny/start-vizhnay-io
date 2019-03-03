@@ -1,10 +1,10 @@
 $link-color: #282828;
 
-.LinkContainer {
+.linkContainer {
   position: relative;
 }
 
-.Link {
+.link {
   color: $link-color;
   text-decoration: none;
   text-transform: lowercase;
@@ -19,7 +19,7 @@ $link-color: #282828;
   }
 }
 
-.RemoveBtn {
+.removeBtn {
   position: absolute;
   right: 0;
   color: lighten($link-color, 70%);
