@@ -1,8 +1,8 @@
 {
   "name": "start.vizhnay.io",
   "short_name": "Start",
-  "theme_color": "#282828",
-  "background_color": "#282828",
+  "theme_color": "#2C3140",
+  "background_color": "#2C3140",
   "display": "standalone",
   "orientation": "portrait",
   "scope": ".",

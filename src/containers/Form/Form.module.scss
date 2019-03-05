@@ -13,7 +13,7 @@
   padding: 10px;
   outline: none;
   border: none;
-  border-bottom: 1px solid #282828;
+  border-bottom: 1px solid #2c3140;
   transition: all 150ms ease-out;
 
   &:focus {
@@ -34,7 +34,7 @@
 
 .submitBtn {
   background-color: #97c688;
-  color: #282828;
+  color: #2c3140;
   width: 100%;
   align-self: flex-end;
   margin-top: 2rem;
@@ -46,7 +46,7 @@
 
   &:disabled {
     background-color: #d6dde8;
-    color: #282828;
+    color: #2c3140;
     cursor: not-allowed;
   }
 }
