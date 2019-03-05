@@ -14,7 +14,7 @@
   animation: modalScaleUp 250ms ease-in;
 
   &__close {
-    @extend .Modal;
+    @extend .modal;
     animation: modalScaleDown 250ms ease-out;
   }
 }
@@ -30,7 +30,7 @@
   animation: backdropFadeIn 250ms ease-in;
 
   &__close {
-    @extend .Backdrop;
+    @extend .backdrop;
     animation: backdropFadeOut 250ms ease-out;
   }
 }
