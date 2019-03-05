@@ -247,7 +247,7 @@ const Form = ({ clicked, linksUpdated }) => {
         />
       ) : null}
       {validationErrors.category.missing ? (
-        <p className={formError}>Please select or enter a category.</p>
+        <p className={formError}>Please select or add a category.</p>
       ) : null}
       <button className={submitBtn} type="submit">
         Add Link
