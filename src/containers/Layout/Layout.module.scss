@@ -6,3 +6,19 @@
   column-gap: 1rem;
   padding: 1rem;
 }
+
+.editButton {
+  background-color: #ebeef3;
+  color: #2c3140;
+  border: 2px solid #2c3140;
+  padding: 1rem;
+  justify-self: center;
+  align-self: center;
+  transition: all 400ms;
+
+  &:hover {
+    background-color: #2c3140;
+    color: #ebeef3;
+    transition: all 400ms;
+  }
+}
