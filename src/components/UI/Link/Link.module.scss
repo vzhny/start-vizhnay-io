@@ -22,12 +22,10 @@ $link-color: #2c3140;
 .removeBtn {
   position: absolute;
   right: 0;
-  color: lighten($link-color, 70%);
-  opacity: 0.5;
+  color: #cc241d;
 
   &:hover {
-    color: #cc241d;
-    opacity: 1;
+    color: lighten(#cc241d, 25%);
     cursor: pointer;
     transition: all 400ms;
   }
