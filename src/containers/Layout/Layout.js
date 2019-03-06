@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useContext } from 'react';
 import store from 'store';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
@@ -6,12 +6,14 @@ import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
 import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
 import Link from '../../components/UI/Link/Link';
+import { EditLinksContext } from '../../context/EditLinksContext';
 import { getGreeting } from '../../utils/utils';
-import { layout } from './Layout.module.scss';
+import { layout, editButton } from './Layout.module.scss';
 
 const Layout = () => {
   const [linksCollection, setLinksCollection] = useState([]);
   const [showModal, toggleModal] = useState(false);
+  const [editable, toggleEditable] = useContext(EditLinksContext);
 
   useLayoutEffect(() => {
     retrieveLinks();
@@ -64,10 +66,7 @@ const Layout = () => {
 
   const removeEmptyCategory = category => {
     const modifiedCategoriesCollection = store.get('categoriesCollection');
-    const indexOfCategoryCollection = findIndex(modifiedCategoriesCollection, [
-      'category',
-      category,
-    ]);
+    const indexOfCategoryCollection = findIndex(modifiedCategoriesCollection, ['category', category]);
 
     modifiedCategoriesCollection.splice(indexOfCategoryCollection, 1);
 
@@ -100,7 +99,16 @@ const Layout = () => {
   return (
     <>
       {showModal && <Modal clicked={hideModalHandler} linksUpdated={linkUpdateHandler} />}
-      <div className={layout}>{renderedLinksCollection}</div>
+      <div className={layout}>
+        {renderedLinksCollection}
+        {editable && (
+          <Card>
+            <button className={editButton} onClick={() => toggleEditable(false)}>
+              Done Editing
+            </button>
+          </Card>
+        )}
+      </div>
       <FloatingActionButton clicked={showModalHandler} />
     </>
   );
