@@ -1,0 +1,28 @@
+.burgerMenuList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.burgerMenuListItem {
+  width: 100%;
+}
+
+.menuButton {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #ebeef3;
+  background-color: #373a47;
+  color: #ebeef3;
+
+  &:hover {
+    background-color: #ebeef3;
+    color: #373a47;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
