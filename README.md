@@ -8,4 +8,4 @@ Simply set as your home page (I use [this](https://chrome.google.com/webstore/de
 
 - Add a back end to save user links across devices.
 - Add a theme switcher to switch between light and dark (potentially automatically reading time of day).
-- Add a side menu and move always visible delete link buttons to a global setting.
+- ~~Add a side menu and move always visible delete link buttons to a global setting.~~ __Done!__
