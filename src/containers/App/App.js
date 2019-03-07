@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { slide as BurgerMenu } from 'react-burger-menu';
+import { ToggleModalProvider } from '../../context/ToggleModalContext';
 import { EditLinksProvider } from '../../context/EditLinksContext';
 import Layout from '../Layout/Layout';
 import BurgerMenuList from '../BurgerMenuList/BurgerMenuList';
@@ -10,10 +11,12 @@ const App = () => {
 
   return (
     <EditLinksProvider>
-      <Layout />
-      <BurgerMenu right isOpen={showSideMenu}>
-        <BurgerMenuList toggleSideMenu={toggleSideMenu} />
-      </BurgerMenu>
+      <ToggleModalProvider>
+        <Layout />
+        <BurgerMenu right isOpen={showSideMenu}>
+          <BurgerMenuList toggleSideMenu={toggleSideMenu} />
+        </BurgerMenu>
+      </ToggleModalProvider>
     </EditLinksProvider>
   );
 };
