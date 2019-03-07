@@ -4,25 +4,21 @@ import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import Modal from '../../components/Modal/Modal';
 import Card from '../../components/Card/Card';
-import FloatingActionButton from '../../components/UI/FloatingActionButton/FloatingActionButton';
 import Link from '../../components/UI/Link/Link';
+import { ToggleModalContext } from '../../context/ToggleModalContext';
 import { EditLinksContext } from '../../context/EditLinksContext';
 import { getGreeting } from '../../utils/utils';
 import { layout, editButton } from './Layout.module.scss';
 
 const Layout = () => {
   const [linksCollection, setLinksCollection] = useState([]);
-  const [showModal, toggleModal] = useState(false);
+  const [showModal, toggleModal] = useContext(ToggleModalContext);
   const [editable, toggleEditable] = useContext(EditLinksContext);
 
   useLayoutEffect(() => {
     retrieveLinks();
     document.title = getGreeting();
   }, [document.title]);
-
-  const showModalHandler = () => {
-    toggleModal(true);
-  };
 
   const hideModalHandler = () => {
     toggleModal(false);
@@ -109,7 +105,6 @@ const Layout = () => {
           </Card>
         )}
       </div>
-      <FloatingActionButton clicked={showModalHandler} />
     </>
   );
 };
