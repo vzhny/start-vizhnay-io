@@ -23,10 +23,11 @@ $link-color: #2c3140;
   position: absolute;
   right: 0;
   color: #cc241d;
+  transition: color 200ms ease-out;
 
   &:hover {
     color: lighten(#cc241d, 25%);
     cursor: pointer;
-    transition: all 400ms;
+    transition: color 200ms ease-in;
   }
 }
