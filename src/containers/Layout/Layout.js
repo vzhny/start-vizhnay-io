@@ -71,7 +71,7 @@ const Layout = () => {
 
   let renderedLinksCollection = (
     <Card>
-      <p>Please click the floating action button to start adding links!</p>
+      <p>Please click the top right menu button and then the first button to start adding links!</p>
     </Card>
   );
 
