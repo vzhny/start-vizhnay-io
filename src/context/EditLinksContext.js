@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 export const EditLinksContext = React.createContext([false, () => {}]);
 
-export const EditLinksConsumer = EditLinksContext.Consumer;
-
 export const EditLinksProvider = ({ children }) => {
   const [editable, toggleEditable] = useState(false);
 
