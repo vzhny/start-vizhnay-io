@@ -19,7 +19,7 @@ const BurgerMenuList = ({ toggleSideMenu }) => {
             toggleSideMenu(false);
           }}
         >
-          Add a new Link
+          Add a Link
         </button>
       </li>
       <li className={burgerMenuListItem}>
