@@ -9,11 +9,16 @@ import {} from './App.module.scss';
 const App = () => {
   const [showSideMenu, toggleSideMenu] = useState(false);
 
+  const menuToggle = state => {
+    const { isOpen } = state;
+    toggleSideMenu(isOpen);
+  };
+
   return (
     <EditLinksProvider>
       <ToggleModalProvider>
         <Layout />
-        <BurgerMenu right isOpen={showSideMenu}>
+        <BurgerMenu right isOpen={showSideMenu} onStateChange={menuToggle}>
           <BurgerMenuList toggleSideMenu={toggleSideMenu} />
         </BurgerMenu>
       </ToggleModalProvider>
