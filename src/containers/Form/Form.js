@@ -218,14 +218,12 @@ const Form = ({ clicked, linksUpdated }) => {
 
   return (
     <form className={form} onSubmit={e => onFormSubmitHandler(e)}>
-      <p>Please enter your link information below:</p>
+      <p>Please enter your link information below.</p>
       <label className={label} htmlFor="name">
         Link Name:
       </label>
       <input className={input} onChange={e => inputHandler(e)} type="text" name="name" />
-      {validationErrors.name.missing ? (
-        <p className={formError}>Please enter a link name.</p>
-      ) : null}
+      {validationErrors.name.missing ? <p className={formError}>Please enter a link name.</p> : null}
       <label className={label} htmlFor="url">
         Link URL:
       </label>
@@ -246,9 +244,7 @@ const Form = ({ clicked, linksUpdated }) => {
           name="category"
         />
       ) : null}
-      {validationErrors.category.missing ? (
-        <p className={formError}>Please select or add a category.</p>
-      ) : null}
+      {validationErrors.category.missing ? <p className={formError}>Please select or add a category.</p> : null}
       <button className={submitBtn} type="submit">
         Add Link
       </button>
