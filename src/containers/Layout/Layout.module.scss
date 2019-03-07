@@ -14,11 +14,11 @@
   padding: 1rem;
   justify-self: center;
   align-self: center;
-  transition: all 400ms;
+  transition: all 200ms ease-out;
 
   &:hover {
     background-color: #2c3140;
     color: #ebeef3;
-    transition: all 400ms;
+    transition: all 200ms ease-in;
   }
 }
