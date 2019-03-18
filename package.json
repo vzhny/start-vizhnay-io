@@ -1,6 +1,7 @@
 {
   "name": "start.vizhnay.io",
   "version": "1.0.0",
+  "license": "MIT",
   "dependencies": {
     "clsx": "^1.0.3",
     "date-fns": "^1.30.1",
