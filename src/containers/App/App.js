@@ -13,8 +13,16 @@ const App = () => {
   useEffect(() => {
     const linksCollection = store.get('linksCollection');
     const linksCollectionLength = linksCollection ? linksCollection.length : 0;
+    const userHasVisited = store.get('hasVisited') || false;
 
-    if (linksCollectionLength === 0) {
+    if (!userHasVisited) {
+      firstVisitWalkthrough(linksCollectionLength);
+      store.set('hasVisited', true);
+    }
+  }, []);
+
+  const firstVisitWalkthrough = length => {
+    if (length === 0) {
       setTimeout(() => {
         toggleSideMenu(true);
       }, 2000);
@@ -23,7 +31,7 @@ const App = () => {
         toggleSideMenu(false);
       }, 3500);
     }
-  }, []);
+  };
 
   const menuToggle = state => {
     const { isOpen } = state;
